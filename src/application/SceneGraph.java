@@ -7,11 +7,13 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 
+
 public class SceneGraph extends Application{
 
 	private final static String TAG = SceneGraph.class.getName();
 	private final static String mNAME = "Method name: ";
 	private final String TITLE = "JavaFX: Scene Graph Example";
+
 	
 	@Override
 	public void start(Stage primaryStage) throws Exception {
@@ -33,11 +35,13 @@ public class SceneGraph extends Application{
 		primaryStage.show();
 	}
 	
-	public static void main(String[] args){
-		
+	
+	public static void main(String[] args) {
+
 		printLog("main", "started");
 		launch(args);
-	}
+	}	
+	
 	
 	private static void printLog(String method, String action){
 		
