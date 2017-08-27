@@ -20,6 +20,7 @@ public class SceneGraph extends Application{
 
 		printLog("start", "started");
 		
+		//Create a NODE:
 		StackPane root = new StackPane();
 		
 		//Add a leaf node
@@ -30,6 +31,7 @@ public class SceneGraph extends Application{
 		//Start a new Scene
 		Scene scene = new Scene(root, 400, 400);
 		
+		//Show primary Stage and Scene
 		primaryStage.setTitle(TITLE);
 		primaryStage.setScene(scene);
 		primaryStage.show();
