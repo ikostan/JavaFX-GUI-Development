@@ -25,6 +25,7 @@ public class SceneGraph extends Application{
 		cir.setFill(Color.CORAL);
 		root.getChildren().add(cir);
 		
+		//Start a new Scene
 		Scene scene = new Scene(root, 400, 400);
 		
 		primaryStage.setTitle(TITLE);
