@@ -1,4 +1,4 @@
-package application;
+package application.examples;
 
 import javafx.application.Application;
 import javafx.event.ActionEvent;
@@ -19,8 +19,10 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-public class LoginFXML extends Application{
 
+public class LoginCSS extends Application{
+
+	
 	private GridPane layout;
 	private Text sceneTitle, action;
 	private TextField userField;
@@ -51,7 +53,8 @@ public class LoginFXML extends Application{
 
 		
 		scene =  new Scene(layout, 300, 300);
-		//LinkFXML file to the scene
+		//Link CSS file to the scene
+		scene.getStylesheets().add(LoginCSS.class.getResource("login.css").toExternalForm());
 		
 		primaryStage.setTitle("LoginForm: CSS");
 		primaryStage.setScene(scene);
@@ -141,5 +144,4 @@ public class LoginFXML extends Application{
 	
 	
 	//END
-
 }
