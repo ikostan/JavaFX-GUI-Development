@@ -1,6 +1,8 @@
 package application;
 
+import java.awt.Desktop;
 import java.io.File;
+import java.io.IOException;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import javafx.application.Application;
@@ -26,11 +28,12 @@ public class Main extends Application{
 
 	//Final parameters
 	private final static String TAG = Main.class.getName().replaceAll("application.", "");
+	private final String GENERIC_ERROR = "Above exception doesn't include built-in error message. For more info see 'printStackTrace' output.";
 	private final String TITLE = "Please select one of the listed below items and hit 'LAUNCH' button:";
 	private final String ERROR = "Error Dialog";
 	private final String EXCEPTION = "Exception Dialog";
-	private final String EXCEPTIONHEAD = "An exception occured, see description below:";
-	private final String ERRORHEAD = "An error occured, see description below:";
+	private final String EXCEPTION_HEAD = "An exception occured, see description below:";
+	private final String ERROR_HEAD = "An error occured, see description below:";
 	private final String launchName = "LAUNCH";
 	private final String closeName = "CLOSE";
 	private final String JAR = ".jar";
@@ -63,31 +66,58 @@ public class Main extends Application{
 	@Override
 	public void start(Stage mainStage) throws Exception {
 		
-		System.out.println(TAG + ": start method called");			
-		
+		System.out.println(TAG + ": start method called");					
+		String error = GENERIC_ERROR;
+
 		try{
 			
-			pane = new BorderPane();
-			setLabel();
-			setCombo();
-			setLaunchBtn();
-			setCloseBtn(mainStage);
-			scene = new Scene(pane, WIDTH, HEIGHT);
-			setStage(mainStage);
+			initWindow(mainStage);
 		}
 		catch(java.lang.NullPointerException ex){
 			
-			showException("Null Pointer Exception", ex.getMessage());
+			if(ex.getMessage() != null){
+				
+				error = ex.getMessage();
+			}
+			
+			showException("Null Pointer Exception: " + ex.toString(), error);
+			ex.printStackTrace();
 		}
 		catch(java.lang.RuntimeException ex){
 		
-			showException("Runtime Exception", ex.getMessage());
+			if(ex.getMessage() != null){
+				
+				error = ex.getMessage();
+			}
+			
+			showException("Runtime Exception: " + ex.toString(), error);
+			ex.printStackTrace();
 		}
 		catch(Exception ex){
 			
-			showException("General Exception", ex.getMessage());
+			if(ex.getMessage() != null){
+				
+				error = ex.getMessage();
+			}
+
+			showException("General Exception: " + ex.toString(), error);
+			ex.printStackTrace();
 		}
+	}
+	
+	
+	//Create and show a new window
+	private void initWindow(Stage mainStage){
 		
+		System.out.println(TAG + ": initWindow method called");		
+		
+		//pane = new BorderPane();
+		setLabel();
+		setCombo();
+		setLaunchBtn();
+		setCloseBtn(mainStage);
+		scene = new Scene(pane, WIDTH, HEIGHT);
+		setStage(mainStage);
 	}
 	
 	
@@ -119,6 +149,7 @@ public class Main extends Application{
 				if(combo.getValue() != null){
 					
 					String fileName = combo.getValue().toString();
+					openJar(fileName);					
 				}
 				else{
 					 
@@ -132,6 +163,33 @@ public class Main extends Application{
 		pane.setAlignment(btnLaunch, Pos.BOTTOM_LEFT);
 	}
 
+	
+	//Run JAR file
+	private void openJar(String fName){
+		
+		System.out.println(TAG + ": openJar method called");		
+		String error = GENERIC_ERROR;
+		
+		//Open the file
+		String fullPath = rootFolderPath + exeFolder; //Set full path for "executable" folder
+		
+		try {
+			
+			Desktop.getDesktop().open(new File(fullPath + fName));
+		} 
+		catch (IOException ex) {
+			
+			if(ex.getMessage() != null){
+				
+				error = ex.getMessage();
+			}
+			
+			showException("IO Exception: " + ex.toString(), error);
+			ex.printStackTrace();
+		}
+
+	}
+	
 	
 	//Set main stage
 	private void setStage(Stage mainStage){
@@ -216,7 +274,7 @@ public class Main extends Application{
 		
 		Alert alert = new Alert(AlertType.ERROR);
 		alert.setTitle(ERROR);
-		alert.setHeaderText(ERRORHEAD);
+		alert.setHeaderText(ERROR_HEAD);
 		alert.setContentText(error);
 		alert.showAndWait();
 	}
@@ -229,7 +287,7 @@ public class Main extends Application{
 		
 		Alert alert = new Alert(AlertType.ERROR);
 		alert.setTitle(EXCEPTION);
-		alert.setHeaderText(EXCEPTIONHEAD);
+		alert.setHeaderText(EXCEPTION_HEAD);
 		alert.setContentText(exceptionName);
 		
 		Label label = new Label("The exception stacktrace was:");
