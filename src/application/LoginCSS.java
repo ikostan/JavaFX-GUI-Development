@@ -53,6 +53,7 @@ public class LoginCSS extends Application{
 
 		
 		scene =  new Scene(layout, 300, 300);
+		//Link CSS file to the scene
 		scene.getStylesheets().add(LoginCSS.class.getResource("login.css").toExternalForm());
 		
 		primaryStage.setTitle("LoginForm: CSS");
