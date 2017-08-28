@@ -19,6 +19,7 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
+
 public class LoginCSS extends Application{
 
 	
@@ -52,6 +53,7 @@ public class LoginCSS extends Application{
 
 		
 		scene =  new Scene(layout, 300, 300);
+		scene.getStylesheets().add(LoginCSS.class.getResource("login.css").toExternalForm());
 		
 		primaryStage.setTitle("LoginForm: CSS");
 		primaryStage.setScene(scene);
@@ -65,8 +67,7 @@ public class LoginCSS extends Application{
 		layout.setAlignment(Pos.CENTER);
 		layout.setHgap(10);
 		layout.setVgap(10);
-		layout.setPadding(new Insets(25,25,25,25));
-		
+		layout.setPadding(new Insets(25,25,25,25));	
 	}
 	
 	
@@ -132,7 +133,7 @@ public class LoginCSS extends Application{
 			public void handle(ActionEvent event) {
 				
 				//Display GridLines
-				action.setFill(Color.CORAL);
+				action.setFill(Color.WHITE);
 				action.setText("'Grid Lines Visible'\n check-box pressed");
 				layout.setGridLinesVisible(chkBox.isSelected());		
 			}
