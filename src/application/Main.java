@@ -111,7 +111,7 @@ public class Main extends Application{
 		
 		System.out.println(TAG + ": initWindow method called");		
 		
-		//pane = new BorderPane();
+		pane = new BorderPane();
 		setLabel();
 		setCombo();
 		setLaunchBtn();
@@ -171,7 +171,7 @@ public class Main extends Application{
 		String error = GENERIC_ERROR;
 		
 		//Open the file
-		String fullPath = rootFolderPath + exeFolder; //Set full path for "executable" folder
+		String fullPath = rootFolderPath + exeFolder + "\\"; //Set full path for "executable" folder
 		
 		try {
 			
